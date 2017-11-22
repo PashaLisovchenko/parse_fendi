@@ -1,11 +1,12 @@
-# -*- coding: utf-8 -*-
-
-# Define your item pipelines here
-#
-# Don't forget to add your pipeline to the ITEM_PIPELINES setting
-# See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
+import psycopg2
+# from parse_fendi.items import Product, Price
+from parse_fendi.task import save_db
 
 
 class ParseFendiPipeline(object):
+    def __init__(self):
+        self.connection = psycopg2.connect(host='localhost', database='scrapy_fendi', user='pasha', password='123')
+        self.cursor = self.connection.cursor()
+
     def process_item(self, item, spider):
-        return item
+        return save_db(item, self.connection, self.cursor)
