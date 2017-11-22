@@ -7,9 +7,9 @@ SITE = "https://www.fendi.com"
 class FendiSpider(scrapy.Spider):
     name = 'fendi'
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, url='https://www.fendi.com/us/man/', *args, **kwargs):
         super(FendiSpider, self).__init__(*args, **kwargs)
-        self.url = kwargs['url']
+        self.url = url
 
     def start_requests(self):
         yield scrapy.Request(url=self.url, callback=self.parse)
