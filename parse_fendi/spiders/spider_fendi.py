@@ -1,18 +1,20 @@
 import scrapy
 import datetime
 from parse_fendi.items import Product, Price
+from scrapy_redis.spiders import RedisSpider
+
 SITE = "https://www.fendi.com"
 
 
-class FendiSpider(scrapy.Spider):
-    name = 'fendi'
+class FendiSpider(RedisSpider):
+    name = 'fendi2'
 
-    def __init__(self, url='https://www.fendi.com/us/man/', *args, **kwargs):
+    def __init__(self, url=None, *args, **kwargs):
         super(FendiSpider, self).__init__(*args, **kwargs)
         self.url = url
 
-    def start_requests(self):
-        yield scrapy.Request(url=self.url, callback=self.parse)
+    # def start_requests(self):
+    #     yield scrapy.Request(url=self.url, callback=self.parse)
 
     def parse(self, response):
         if 'man' in response.url.split('/'):

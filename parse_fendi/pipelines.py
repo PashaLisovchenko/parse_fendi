@@ -9,4 +9,5 @@ class ParseFendiPipeline(object):
         self.cursor = self.connection.cursor()
 
     def process_item(self, item, spider):
-        return save_db(item, self.connection, self.cursor)
+        return item
+        # return save_db(item, self.connection, self.cursor)
